@@ -1,0 +1,217 @@
+{% load static tailwind_tags %} {% tailwind_css %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Create Event</title>
+	</head>
+	<style>
+		.nav{
+			display: flex;
+			position: relative;
+			padding-top: 5px;
+			border-radius: 15px;
+			color: #707070;
+            font-size: 48;
+            margin-top: 1.5%;
+            margin-left: 15%;
+
+		}
+
+		.box{
+			display: block;
+			position: relative;
+			height: 1000px;
+			margin-top: 20px;
+			background-color: white;
+			border-top-left-radius: 100px;
+			border-top-right-radius: 100px;
+			overflow: hidden;
+		}
+
+		.form{
+			display: flex;
+			flex-direction: row;
+			justify-content:flex-end;
+			margin-top: 30px;
+			margin: 30px;
+			height: 80%;
+			width: 50%;
+	
+		}
+
+		.form .display{
+			display: flex;
+			flex-direction: column;
+			/*position: relative;
+			outline: 2px solid red; */
+			height: 650px;
+			width: 50%;
+			left: 300px;
+			margin-top: 40px;
+			padding-top: 50px;
+		
+		}
+
+		/*
+		.user{
+			outline: 2px solid pink;
+		} */
+
+		label {
+			vertical-align: baseline;
+		}
+		
+		input {
+			margin: 3%;
+			
+		}
+
+		textarea {
+			margin: 3%;
+		}
+
+		.column1 {
+			display: flex;
+			flex-direction: column;
+			margin-left: 0%;
+		}
+
+		.column {
+			display: flex;
+			flex-direction: column;
+			margin-left: 200%;
+			margin-right: -300%;
+			margin-top: -150%;
+		}
+
+		.Field{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 30px;
+			margin-right: 20px;
+		}
+
+		.profile-image{
+			display: flex;
+			justify-content: center;
+			padding-top: 20%; /* TODO: you may want to remove padding when adding the actual pfp */
+			text-align: center;
+			/*position: fixed;*/
+			margin-left: 120%;
+			margin-top: -80%;
+			background-color: #F0F0F0;
+			/* outline: 2px solid blue; 
+			margin:  -600px auto; 
+			margin-right: 140px; */ 
+			/*right: 0; 
+			top: 0; */ 
+			width: 325px;
+			height: 40%;
+			border-radius: 50%;
+		}
+		
+		.btn-class{
+			position: relative;
+			display: flex;
+			justify-content: center;
+			height: 50px;
+			bottom: 100px;
+			margin-top: 10%;
+			/* top: 60px;
+			left: 1000px; */
+		}
+
+		.button {
+            background-color: #BFD8E3; /* Green */
+            border: none;
+            padding: 10px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 25;
+            width: 438px;
+            height: 65px;
+            border-radius: 35px;
+            margin-right: 50px;
+			margin-top: -20%;
+        }
+
+        .button1:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+		#saveID{
+			position: absolute;
+			width: 200px;
+			height: 50px;
+		}
+		
+		
+		.display{
+			display: flex;
+			flex-direction: row;
+		}
+
+
+	</style>
+	<body class="main" style="background: linear-gradient(to bottom right,#D0E6E6, #DAE1F5);">
+		<div class="nav">
+			Create Event
+		</div>
+		<div class="box">
+			<div class="form">
+				<div class="x-icon">
+					<button onclick="location.href = '../home/'">
+						<img src="{% static '/icons/x_out.png' %}" class="image"></img>
+					</button>
+				</div>
+				<form method="POST">
+					{% csrf_token %}
+					<div class="display">
+						<!-- Form Fields -->
+						<div class="column1">
+							<div class="Field">
+								<label class="event" style="margin-right: 30px;" for="firstid">Name: </label>
+								<input style="background-color: #F0F0F0;" id="firstid" name="name" placeholder="Enter Name" type="text" required>
+							</div>
+			
+							<div class="Field">
+								<label class="event" style="margin-right: 35px;" for="">Type: </label>
+								<input style="width: 400px; background-color: #F0F0F0;" type="text" placeholder="Enter Type" name="type" required>
+							</div>
+							<div class="Field">
+								<label class="event" style="margin-right: 50px;" for="">Day: </label>
+								<input style="width: 400px; background-color: #F0F0F0;" name="day" id="" type="date" cols="43" rows="4" placeholder="Enter Day">
+								<!-- <input style="width: 535px; height: 100px;" type="text"> -->
+							</div>
+						</div>
+						<div class="column">
+							<div class="Field">
+								<label class="event" for="">Start Time: </label>
+								<input style="width: 400px; background-color: #F0F0F0;" type="time" placeholder="Enter Start Time" name="start_time" required>
+							</div>
+							<div class="Field">
+								<label class="event" for="">End Time: </label>
+								<input style="width: 400px; background-color: #F0F0F0;" type="time" placeholder="Enter End Time" minlength="5" name="end_time" required>
+							</div>
+							<div class="Field">
+								<label class="event" for="">Notes: </label>
+								<input style="width: 400px; background-color: #F0F0F0;" type="text" placeholder="Enter Notes" minlength="5" name="notes">
+							</div>
+						</div>
+					</div>
+			</div>	
+			<div class="btn-class">
+				<button class="button button1" onclick="confirmation();">Create Event!</button>
+			</div>
+		</form>
+		</div>
+		</div>
+	</body>
+	<Script>
+		function confirmation(){
+			alert("Awesome, you successfully created an event! :)");
+		}
+	</Script>
+</html>

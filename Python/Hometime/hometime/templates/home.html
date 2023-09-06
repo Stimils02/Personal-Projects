@@ -1,0 +1,396 @@
+{% load tailwind_tags %} {% tailwind_css %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homie Home</title>
+
+    <!-- Google Font Link for Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+    <style>
+
+        html, body {
+            height: 100%;
+            
+            display: flex;
+            flex-direction: column;
+        }
+
+        body > * {
+            flex-shrink: 0;
+        }
+
+        /*html,body { height:100%; } */
+    
+        #grad1 {
+            height: 200px;
+            background-color: #D0E6E6; /* For browsers that do not support gradients */
+            background-image: linear-gradient(to bottom right, #D0E6E6, #DAE1F5);
+        }
+
+        body {
+            color: #707070;
+            font-size: 20;
+        }
+        
+        h1 {
+            color: #707070;
+            font-size: 48;
+            margin-top: 1.5%;
+            margin-left: 15%;
+        }
+
+        .profile-image{
+			background-color: #F0F0F0;
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+            margin-left: 4%;
+            margin-right: -10%;
+            margin-top: 1%;
+		}
+
+        div1 {
+            display: flex;
+            flex-direction: row;
+            height: 15%;
+        }
+
+        div2 {
+            background-color: white;
+            height: 85%;
+            width: 100%;
+            border-radius: 85px 85px 0px 0px;
+            flex-grow: 1;
+            padding: 0px 125px 125px 125px;
+        }
+  
+        div5 {
+            margin-left: 10%;
+            margin-bottom: 10%;
+            align-self: flex-end;
+        }
+
+        .button {
+            background-color: #BFD8E3; /* Green */
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 25;
+            width: 500px;
+            height: 65px;
+            border-radius: 35px;
+            margin-right: 50px;
+        }
+
+        .button1:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-container4 {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .flex-container > div {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10%;
+            margin-left: -5%;
+            margin-right: 6%;
+            margin-bottom: 6%;
+
+        }
+
+        .logout {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #ee6060;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 24px;
+            padding: 15px;
+            transition: all 0.5s;
+            cursor: pointer;
+            justify-content: center;
+            margin: 25px 40px 25px 25px;
+            width: 150px;
+        }
+
+        .logout span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .logout span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .logout:hover span {
+            padding-right: 25px;
+        }
+
+        .logout:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        /* New stuff (experiemental) */
+        .wrapper{
+            width: 450px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            height: 130%;
+        }
+        .wrapper header{
+            display: flex;
+            align-items: center;
+            padding: 25px 30px 10px;
+            justify-content: space-between;
+        }
+        header .icons{
+            display: flex;
+        }
+        header .icons span{
+            height: 38px;
+            width: 38px;
+            margin: 0 1px;
+            cursor: pointer;
+            color: #878787;
+            text-align: center;
+            line-height: 38px;
+            font-size: 1.9rem;
+            user-select: none;
+            border-radius: 50%;
+        }
+        .icons span:last-child{
+            margin-right: -10px;
+        }
+        header .icons span:hover{
+            background: #f2f2f2;
+        }
+        header .current-date{
+            font-size: 1.45rem;
+            font-weight: 500;
+        }
+        .calendar{
+            padding: 20px;
+        }
+        .calendar ul{
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            text-align: center;
+        }
+        .calendar .days{
+            margin-bottom: 20px;
+        }
+        .calendar li{
+            color: #333;
+            width: calc(100% / 7);
+            font-size: 1.07rem;
+        }
+        .calendar .weeks li{
+            font-weight: 500;
+            cursor: default;
+        }
+        .calendar .days li{
+            z-index: 1;
+            cursor: pointer;
+            position: relative;
+            margin-top: 30px;
+        }
+        .days li.inactive{
+            color: #aaa;
+        }
+        .days li.active{
+            color: #fff;
+        }
+        .days li::before{
+            position: absolute;
+            content: "";
+            left: 50%;
+            top: 50%;
+            height: 40px;
+            width: 40px;
+            z-index: -1;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .days li.active::before{
+            background: #accad7;
+        }
+        .days li:not(.active):hover::before{
+            background: #f2f2f2;
+        }
+
+        .side {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .viewBtn {
+            background-color: #BFD8E3; /* Green */
+            border: none;
+            padding: 10px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 25;
+            width: 438px;
+            height: 65px;
+            border-radius: 35px;
+            margin-right: 50px;
+            margin-top: 12%;
+        }
+    </style>
+</head>
+<body id="grad1">
+    <div1>
+        <div class="profile-image" onclick="location.href = '../profile/' ">
+            <!-- put pfp here -->
+            {% if custom_image %}
+            <img
+            id="profile-image"
+            name="upload_picture"
+            src="{{custom_image.url}}"
+        />
+        {% endif %}
+        </div>
+
+        <h1>Homie Home</h1>
+        <div style="margin-left: auto; margin-right: 0;">
+            <button
+            onclick="location.href = '..'"
+            class="logout"
+            style="vertical-align:middle"><span>Logout </span>
+        </button>
+        </div>
+
+    </div1>
+
+    <div2>
+        <br><br>
+        <div4 class="flex-container4">
+            <div3 class="flex-container">
+                <div>
+                    <button class="button button1" onclick="location.href = '../findtime/'">Find Homie Time</button>
+                    <p>Use this to set time for your homies!</p>
+                </div>
+
+                <div>
+                    <button class="button button1" onclick="location.href = '../createEvent/'">Create New Event</button>
+                    <p>Use this to create/plan a new event!</p>
+                </div>
+
+                <div>
+                    <button class="button button1" onclick="location.href = '../homielist/'">View Your Homies</button>
+                    <p>Use this to manage your friend list!</p>
+                </div>
+            </div3>
+            <div class="side">
+                <div class="wrapper">
+                    <header>
+                    <p class="current-date"></p>
+                    <div class="icons">
+                        <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                        <span id="next" class="material-symbols-rounded">chevron_right</span>
+                    </div>
+                    </header>
+                    <div class="calendar">
+                    <ul class="weeks">
+                        <li>Sun</li>
+                        <li>Mon</li>
+                        <li>Tue</li>
+                        <li>Wed</li>
+                        <li>Thu</li>
+                        <li>Fri</li>
+                        <li>Sat</li>
+                    </ul>
+                    <ul class="days"></ul>
+                    </div>
+                </div>
+
+                
+                <div5>
+                    <button style="align-self: flex-end" class="button1 viewBtn" onclick="location.href = '../view/'">View Your Calendar</button>
+                </div5>
+            </div>
+        </div4>
+    </div2>
+
+    <script>
+        // ! Make this code more "mine"
+
+        const daysTag = document.querySelector(".days"),
+        currentDate = document.querySelector(".current-date"),
+        prevNextIcon = document.querySelectorAll(".icons span");
+
+        // getting new date, current year and month
+        let date = new Date(),
+        currYear = date.getFullYear(),
+        currMonth = date.getMonth();
+        // storing full name of all months in array
+        const months = ["January", "February", "March", "April", "May", "June", "July",
+                    "August", "September", "October", "November", "December"];
+        const renderCalendar = () => {
+            let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
+            lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
+            lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
+            lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+            let liTag = "";
+            for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+                liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+            }
+            for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+                // adding active class to li if the current day, month, and year matched
+                let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
+                            && currYear === new Date().getFullYear() ? "active" : "";
+                liTag += `<li class="${isToday}">${i}</li>`;
+            }
+            for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+                liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+            }
+            currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+            daysTag.innerHTML = liTag;
+        }
+        renderCalendar();
+        prevNextIcon.forEach(icon => { // getting prev and next icons
+            icon.addEventListener("click", () => { // adding click event on both icons
+                // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+                currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+                if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+                    // creating a new date of current year & month and pass it as date value
+                    date = new Date(currYear, currMonth);
+                    currYear = date.getFullYear(); // updating current year with new date year
+                    currMonth = date.getMonth(); // updating current month with new date month
+                } else {
+                    date = new Date(); // pass the current date as date value
+                }
+                renderCalendar(); // calling renderCalendar function
+            });
+        });
+
+    </script>
+ 
+</body>
+</html>
