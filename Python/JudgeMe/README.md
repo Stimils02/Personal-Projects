@@ -1,4 +1,4 @@
-# CS307 Project: JudgeMe
+# JudgeMe
 
 ## About
 JudgeMe is a social network that uses your Spotify to connect your music taste with your friends' music taste. JudgeMe will give you a music taste value that you can compare with your friends. Along with that, JudgeMe can create playlists for you, give you a breakdown of your music taste, and break down artist statistics. 
