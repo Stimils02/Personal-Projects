@@ -1,0 +1,178 @@
+{% extends 'base.html' %} {% load static %}
+<html>
+    {% block content %}
+    <body>
+        <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+            />
+            <title>Tailwind django</title>
+        </head>
+        <style>
+            body {
+                background-color: #355e3b;
+            }
+            .image {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                left: 200px;
+                border-radius: 50%;
+                border: 5px solid #00ff00;
+            }
+            .image2 {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                right: 75px;
+                margin-left: auto;
+                border-radius: 50%;
+                border: 5px solid #00ff00;
+            }
+            .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .container1 {
+                display: flex;
+                justify-content: center;
+            }
+        </style>
+        <div class="flex items-center justify-center h-screen">
+            <div class="flex space-y-8 w-96 items-center flex-col">
+                <p
+                    class="text-[#E0FF9D] title text-center opacity-0 animate-fadeIn animation-delay-500 text-9xl"
+                >
+                    JudgeMe
+                </p>
+                <p
+                    class="text-center opacity-0 animate-fadeIn animation-delay-1500"
+                >
+                    Your music taste sucks. But don’t worry, your friends aren’t
+                    doing much better.
+                </p>
+                <p
+                    class="text-center opacity-0 animate-fadeIn animation-delay-3000"
+                >
+                    JudgeMe exists to find the overlap between you and your
+                    friends’ trash taste so that maybe, for once, everyone can
+                    sing along during weekly grocery runs.
+                </p>
+            </div>
+        </div>
+        <h1
+            class="text-[#E0FF9D] font-medium text-center"
+            style="font-size: 600%"
+        >
+            Meet the Creators
+        </h1>
+        <br />
+        <div class="container">
+            <div class="text">
+                <h1 style="font-size: 250%; color: white">Aarushi Singh</h1>
+                <h2 style="font-size: 100%; color: white">
+                    A computer science student at Purdue.
+                </h2>
+            </div>
+            <div>
+                <img src="{% static '/creator_pictures/Aarushi.jpg' %}" alt="Aarushi" class="image"></img>
+            </div>
+        </div>
+        <div class="container">
+            <div>
+                <img src="{% static '/creator_pictures/John.jpeg' %}" alt="John" class="image2"></img>
+            </div>
+            <div class="text">
+                <h1 style="font-size: 250%; color: white">John Robinson</h1>
+                <h2 style="font-size: 100%; color: white">
+                    A computer science student at Purdue.
+                </h2>
+            </div>
+        </div>
+        <div class="container">
+            <div class="text">
+                <h1 style="font-size: 250%; color: white">Kenny Park</h1>
+                <h2 style="font-size: 100%; color: white">
+                    A game design student at Purdue.
+                </h2>
+            </div>
+            <div>
+                <img src="{% static '/creator_pictures/Kenny.jpg' %}" alt="Kenny" class="image"></img>
+            </div>
+        </div>
+        <div class="container">
+            <div>
+                <img src="{% static '/creator_pictures/Nick.jpeg' %}" alt="Nick" class="image2"></img>
+            </div>
+            <div class="text">
+                <h1 style="font-size: 250%; color: white">Nick Pancione</h1>
+                <h2 style="font-size: 100%; color: white">
+                    A computer science student at Purdue.
+                </h2>
+            </div>
+        </div>
+        <div class="container">
+            <div class="text">
+                <h1 style="font-size: 250%; color: white">Sujal Timilsina</h1>
+                <h2 style="font-size: 100%; color: white">
+                    A computer science student at Purdue.
+                </h2>
+            </div>
+            <div>
+                <img src="{% static '/creator_pictures/Sujal.jpeg' %}" alt="Sujal" class="image"></img>
+            </div>
+        </div>
+        <br /><br /><br /><br /><br /><br /><br /><br />
+        <h3
+            class="title font-medium text-center text-[#E0FF9D]"
+            style="font-size: 600%"
+        >
+            Features
+        </h3>
+        <div class="container1 space-x-12">
+            {% load static %}
+            <div>
+                <button
+                    class="btn bg-[#E0FF9D] w-72 h-72 rounded-full items-center hover:bg-[white]"
+                >
+                    <img
+                        src="{% static '/icons/profile.png' %}"
+                        alt="map"
+                        class="w-25 h-25"
+                        onclick="location.href='../profile/'"
+                    />
+                </button>
+            </div>
+            <div>
+                <button
+                    class="btn bg-[#E0FF9D] w-72 h-72 rounded-full items-center hover:bg-[white]"
+                    onclick="location.href='../judge/'"
+                >
+                    <img
+                        src="{% static '/icons/compare.png' %}"
+                        alt="compare"
+                        class="w-25 h-25"
+                        onclick="location.href='../judge/'"
+                    />
+                </button>
+            </div>
+            <div>
+                <button
+                    class="btn bg-[#E0FF9D] w-72 h-72 rounded-full items-center hover:bg-[white]"
+                >
+                    <img
+                        src="{% static '/icons/generate.png' %}"
+                        alt="generate"
+                        class="w-25 h-25"
+                        onclick="location.href='../generate/'"
+                    />
+                </button>
+            </div>
+        </div>
+    </body>
+    {% endblock %}
+</html>

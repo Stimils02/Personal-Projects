@@ -1,0 +1,313 @@
+{% extends 'base.html' %} {% load static tailwind_tags %} {% tailwind_css %}
+<!DOCTYPE html>
+<html>
+  {% block content %}
+  <title>Generate</title>
+  <body>
+    <!-- BUBBLES -->
+    <div
+      class="fixed top-50 right-10 w-20 h-72 bg-[#3d0c02] rounded-full rotate-12 animate-blob"
+    ></div>
+    <!--END BUBBLES-->
+
+    <div class="flex items-center justify-center h-screen">
+      <div id="container" class="flex space-y-20 w-200 items-center flex-col">
+        <button
+          id="dropdownCheckboxButton0"
+          data-dropdown-toggle="dropdownDefaultCheckbox0"
+          class="z-10 w-48 text-white bg-[#3d0c02] hover:bg-[#3d0c02] focus:ring-5 focus:outline-none focus:ring-[#3d0c02] font-medium rounded-lg text-4xl px-4 py-2.5 text-center inline-flex items-center dark:bg-[#3d0c02] dark:hover:bg-[#3d0c02] dark:focus:ring-[#3d0c02]"
+          type="button"
+        >
+          Playlist Size
+          <svg
+            class="ml-2 w-4 h-4"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </button>
+
+        <div
+          id="dropdownDefaultCheckbox0"
+          class="hidden z-10 w-48 rounded divide-y divide-[#3d0c02] bg-[#3d0c02] shadow dark:bg-[#3d0c02] dark:divide-[#3d0c02]"
+        >
+          <ul
+            class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownCheckboxButton0"
+          >
+            <li>
+              <div id="twenty" class="flex items-center">
+                <input
+                  id="20"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-[#9f8170] bg-white rounded border-white focus:ring-[#9f8170] dark:focus:ring-[#9f8170] dark:ring-offset-white focus:ring-2 dark:bg-white dark:border-white"
+                />
+                <label
+                  for="20 songs"
+                  class="ml-2 text-lg font-medium text-white"
+                  >20 songs</label
+                >
+              </div>
+            </li>
+            <li>
+              <div id="fourty" class="flex items-center">
+                <input
+                  id="40"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-[#9f8170] bg-white rounded border-white focus:ring-[#9f8170] dark:focus:ring-[#9f8170] dark:ring-offset-white focus:ring-2 dark:bg-white dark:border-white"
+                />
+                <label
+                  for="40 songs"
+                  class="ml-2 text-lg font-medium text-white"
+                  >40 songs</label
+                >
+              </div>
+            </li>
+            <li>
+              <div id="fifty" class="flex items-center">
+                <input
+                  id="50"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-[#9f8170] bg-white rounded border-white focus:ring-[#9f8170] dark:focus:ring-[#9f8170] dark:ring-offset-white focus:ring-2 dark:bg-white dark:border-white"
+                />
+                <label
+                  for="50 songs"
+                  class="ml-2 text-lg font-medium text-white"
+                  >50 songs</label
+                >
+              </div>
+            </li>
+            <li>
+              <div id="hundred" class="flex items-center">
+                <input
+                  id="100"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-[#9f8170] bg-white rounded border-white focus:ring-[#9f8170] dark:focus:ring-[#9f8170] dark:ring-offset-white focus:ring-2 dark:bg-white dark:border-white"
+                />
+                <label
+                  for="100 songs"
+                  class="ml-2 text-lg font-medium text-white"
+                  >100 songs</label
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <button
+          class="bg-[#3d0c02] text-white text-lg font-medium py-2 px-10 rounded-full"
+          id="save0"
+          name="save0"
+        >
+          Save
+        </button>
+
+        <button
+          id="dropdownCheckboxButton"
+          data-dropdown-toggle="dropdownDefaultCheckbox"
+          class="z-10 w-48 text-white bg-[#3d0c02] hover:bg-[#3d0c02] focus:ring-5 focus:outline-none focus:ring-[#3d0c02] font-medium rounded-lg text-4xl px-4 py-2.5 text-center inline-flex items-center dark:bg-[#3d0c02] dark:hover:bg-[#3d0c02] dark:focus:ring-[#3d0c02]"
+          type="button"
+        >
+          Friends
+          <svg
+            class="ml-2 w-4 h-4"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </button>
+
+        <div
+          id="dropdownDefaultCheckbox"
+          class="hidden z-10 w-48 rounded divide-y divide-[#3d0c02] bg-[#3d0c02] shadow dark:bg-[#3d0c02] dark:divide-[#3d0c02]"
+        >
+          <ul
+            class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownCheckboxButton"
+          >
+            {% if user %} {% if friends %} {% for friend in friends %}
+            <li>
+              <div class="flex items-center">
+                <input
+                  id="{{friend.username}}"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-[#9f8170] bg-white rounded border-white focus:ring-[#9f8170] dark:focus:ring-[#9f8170] dark:ring-offset-white focus:ring-2 dark:bg-white dark:border-white"
+                />
+                <label
+                  for="{{friend.username}}"
+                  class="ml-2 text-lg font-medium text-white"
+                  >{{friend.username}}</label
+                >
+              </div>
+            </li>
+            {% endfor %} {% endif %} {% endif %}
+          </ul>
+        </div>
+
+        <button
+          class="bg-[#3d0c02] text-white text-lg font-medium py-2 px-10 rounded-full"
+          id="save"
+          name="save"
+        >
+          Save
+        </button>
+
+        <button
+          id="dropdownCheckboxButton2"
+          data-dropdown-toggle="dropdownDefaultCheckbox2"
+          class="z-10 w-48 text-white bg-[#3d0c02] hover:bg-[#3d0c02] focus:ring-5 focus:outline-none focus:ring-[#3d0c02] font-medium rounded-lg text-4xl px-4 py-2.5 text-center inline-flex items-center dark:bg-[#3d0c02] dark:hover:bg-[#3d0c02] dark:focus:ring-[#3d0c02]"
+          type="button"
+        >
+          Artists
+          <svg
+            class="ml-2 w-4 h-4"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </button>
+
+        <div
+          id="dropdownDefaultCheckbox2"
+          class="hidden z-10 w-48 bg-[#3d0c02] rounded divide-y divide-[#3d0c02] shadow dark:bg-[#3d0c02] dark:divide-[#3d0c02]"
+        >
+          <ul
+            class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownCheckboxButton2"
+          >
+            {% if user %} {% if artistNames %} {% for artistName in artistNames%}
+            <li>
+              <div class="flex items-center">
+                <input
+                  id="{{artistName}}"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-[#9f8170] bg-white rounded border-white focus:ring-[#9f8170] dark:focus:ring-[#9f8170] dark:ring-offset-white focus:ring-2 dark:bg-white dark:border-white"
+                />
+                <label
+                  for="{{artistName}}"
+                  class="ml-2 text-lg font-medium text-white"
+                  >{{artistName}}</label
+                >
+              </div>
+            </li>
+            {% endfor %} {% endif %} {% endif %}
+          </ul>
+        </div>
+
+        <button
+          class="bg-[#3d0c02] text-white text-lg font-medium py-2 px-10 rounded-full"
+          id="save2"
+          name="save2"
+        >
+          Save
+        </button>
+
+        <button
+          id="next"
+          class="bg-transparent hover:bg-[#3d0c02] text-[#3d0c02] font-semibold hover:text-white py-2 px-4 border border-[#3d0c02] hover:border-transparent rounded"
+        >
+          Next
+        </button>
+
+        <script data-artists="{{ artistNames }}" data-friends="{{ friends }}">
+          let sizeSave = document.getElementById("save0");
+          let friendSave = document.getElementById("save");
+          let artistSave = document.getElementById("save2");
+          let next = document.getElementById("next");
+
+          const data = document.currentScript.dataset;
+
+          let size = 0;
+          const selected = [];
+
+          next.addEventListener("click", () => {
+            $.ajax({
+              type: "GET",
+              url: "/generateOptions",
+              data: {
+                "size": size,
+                "artist": JSON.stringify(selected),
+              },
+              dataType: "json",
+              success: function (data) {
+                console.log("success");
+              },
+              error: function (error) {
+                console.log("error");
+              },
+            });
+            location.href='../playlist/'
+          });
+
+          sizeSave.addEventListener("click", () => {
+            let checkbox1 = document.getElementById("20");
+            let checkbox2 = document.getElementById("40");
+            let checkbox3 = document.getElementById("50");
+            let checkbox4 = document.getElementById("100");
+            if (checkbox1.checked) {
+              size = 20;
+            }
+            if (checkbox2.checked) {
+              size = 40;
+            }
+            if (checkbox3.checked) {
+              size = 50;
+            }
+            if (checkbox4.checked) {
+              size = 100;
+            }
+          });
+          friendSave.addEventListener("click", () => {
+            const friends = data.friends;
+            console.log(friends)
+          });
+          artistSave.addEventListener("click", () => {
+            const artists = data.artists.substring(2, data.artists.length - 2).split("', '");
+            for (const artist of artists) {
+              let artistInput = document.getElementById(artist)
+              if (artistInput.checked) {
+                selected.push(artist)
+              }
+            }
+          });
+        </script>
+
+        <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,103 @@
+
+{% load static tailwind_tags %} {% tailwind_css %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+  </head>
+
+  <!-- BUBBLES -->
+  <div
+    class="fixed top-32 right-5 w-72 h-36 z-1 bg-emerald-300 rounded-full rotate-12 animate-blob animation-delay-1500"
+  ></div>
+  <div
+    class="fixed z-1 bottom-64 w-72 h-72 bg-emerald-300 rounded-full animate-blob"
+  ></div>
+  <!--END BUBBLES-->
+
+  <body class="bg-emerald-900 rows-3">
+    <div
+      class="grid grid-rows gap-4 justify-center mx-auto my-auto w-screen h-screen items-center z-1"
+    >
+      <!--Title-->
+      <div class="relative h-24 w-full z-2">
+        <h1 class="text-7xl text-bold z-2 pl-20 pt-20 text-center">
+          The Results Are In!
+        </h1>
+      </div>
+      <!--Graph, base from https://flowbite.com/docs/forms/range/-->
+      <style>
+        .slidecontainer {
+          width: 100%;
+        }
+        
+        .slider {
+          -webkit-appearance: none;
+          width: 100%;
+          height: 25px;
+          background: #d3d3d3;
+          outline: none;
+          opacity: 0.7;
+          -webkit-transition: .2s;
+          transition: opacity .2s;
+        }
+        
+        .slider:hover {
+          opacity: 1;
+        }
+        
+        .slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 25px;
+          height: 25px;
+          background: #04AA6D;
+          cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+          width: 25px;
+          height: 25px;
+          background: #04AA6D;
+          cursor: pointer;
+        }
+      </style>
+      
+      <div class="slidecontainer">
+        <input type="range" min="0" max="32" value="16" class="slider" id="myRange">
+        <p>Music Taste Value: <span id="demo"></span></p>
+      </div>
+
+      <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+        
+        slider.oninput = function() {
+          output.innerHTML = this.value;
+          if (document.getElementById(this.value.toString())) {
+            if (this.value == Math.floor(document.getElementById(this.value.toString()).getAttribute('value'))) {
+              document.getElementById(this.value.toString()).setAttribute('class', 'relative w-28 h-28 m-auto');
+            } 
+          } else {
+              document.getElementById(value.toString()).setAttribute('class', 'relative w-28 h-28 m-auto blur');
+          }
+        }
+      </script>
+        
+      <div class="relative grid grid-cols-2 gap-4">
+        {% for friend in friends %}
+            <figure class="grid grid-cols-1 justify-items-center">
+            <img 
+                id="{{friend.music_taste}}"
+                value={{friend.music_taste}}
+                src="{{friend.profile_picture}}"
+                class="relative w-28 h-28 m-auto blur rounded-full"
+                />
+                <figcaption class="items-center">{{ friend.display_name }} <br> Music Taste: {{ friend.music_taste }}</figcaption>
+            </figure>
+        {% endfor %}
+      </div>

@@ -1,0 +1,114 @@
+{% load static tailwind_tags %} {% tailwind_css %}
+<!DOCTYPE html>
+<html>
+  <title>Judge</title>
+
+  <body class="bg-emerald-900 columns-1">
+    <!-- BUBBLES -->
+    <div
+      class="fixed top-32 right-5 w-72 h-36 z-1 bg-emerald-300 rounded-full rotate-12 animate-blob animation-delay-1500"
+    ></div>
+    <div
+      class="fixed bottom-64 w-72 h-72 z-2 bg-emerald-300 rounded-full animate-blob"
+    ></div>
+    <!--END BUBBLES-->
+    <div class="relative h-24 w-full z-2">
+      <h1 class="relative text-7xl text-bold z-2 pl-20 pt-20 text-center">
+        Go Ahead, JudgeMe
+      </h1>
+    </div>
+    <div
+      class="flex justify-center container mx-auto my-auto w-screen h-screen items-center flex-col space-y-2 z-2"
+    >
+      <div id="music-taste" class="hidden flex-col justify-center z-2">
+        <span class="relative text-right text-bold text-4xl z-2 animate-bounce">
+          {{music_taste}}
+        </span>
+        <p class="relative text-right z-2">
+          Your music taste value is determined based on the correlation between
+          genre of music and the "Big Five" Personality Traits:
+          <br />
+          Agreeableness, Conscientiousness, Openness, Emotional Stability,
+          Extravertedness.
+          <br />
+          Your music taste value of {{music_taste}} says that you are...
+          <br />
+          <br />
+          {% if me.agreeableness < 3 %} Not Agreeable {% else %} Agreeable {% endif %}
+          <br />
+          {% if me.conscientiousness < 3 %} Not Conscientious {% else %}
+          Conscientious {% endif %}
+          <br />
+          {% if me.openness < 3 %} Not Open {% else %} Open {% endif %}
+          <br />
+          {% if me.emotional_stability < 3 %} Not Emotionally Stable {% else %}
+          Emotionally Stable {% endif %}
+          <br />
+          {% if me.extravertedness < 3 %} Introverted {% else %} Extraverted {% endif %}
+        </p>
+        <br />
+        <a href="https://journals.sagepub.com/doi/10.1177/1948550620923228" class="z-2"
+          >Link to Research</a
+        >
+      </div>
+      <button class="btn opacity-0 animate-fadeIn" onclick="showMusicTaste()">
+        Show Me My Music Taste
+      </button>
+
+      <button class="btn opacity-0 animate-fadeIn" onclick="location.href='./music_tastes'">
+        Show Friends' Music Tastes
+      </button>
+
+      <button
+        type="submit"
+        class="btn opacity-0 animate-fadeIn"
+        name="fvf"
+        onclick="showFriends()"
+      >
+        Friend vs Friend
+      </button>
+
+      <script src="../../static/js/script.js"></script>
+      <div id="friend-list" class="hidden flex-col">
+        {% for friend in friends %}
+        <form id="{{friend.username}}">
+          <div
+            class="relative flex flex-row w-72 h-16 p-2 my-1 rounded-lg border-0 space-x-2 bg-green-300 hover:bg-green-400]"
+            onclick="selectFriend(`{{friend.username}}`)"
+          >
+            <input
+              name="friend"
+              value="{{friend}}"
+              class="hidden"
+              id="{{friend.username}}"
+            />
+            <img
+              src="{{friend.profile_picture}}" 
+              class="w-12 h-12 rounded-full hover:opacity-60"
+            />
+            <div class="flex flex-col text-left">
+              <p class="text-black text-base">{{friend}}</p>
+              <p class="text-indigo-200 text-xs">
+                Joined {{friend.date_joined}}
+              </p>
+            </div>
+          </div>
+        </form>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+  <script>
+    function showFriends() {
+      document.getElementById("friend-list").style.display = "flex";
+    }
+
+    function selectFriend(name) {
+      document.getElementById(name).submit();
+    }
+
+    function showMusicTaste() {
+      document.getElementById("music-taste").style.display = "flex";
+    }
+  </script>
+</html>

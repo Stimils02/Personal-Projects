@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+
+<html>
+    {% block content %}
+    <head>
+        <title>Profile</title>
+    </head>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+        *:focus {
+            outline: none;
+        }
+        .box {
+            box-sizing: border-box;
+            width: 600px;
+            {% comment %} height: 600px; {% endcomment %}
+            {% comment %} border: 2px solid green;
+            border-radius: 40px; {% endcomment %}
+            {% comment %} background-color: black; {% endcomment %}
+            margin-top: 50px;
+            {% comment %} margin: auto; {% endcomment %}
+            overflow: hidden;
+            transition: 00.3s;
+        }
+        .imgbx {
+            position: relative;
+            background-color: white;
+            right: 200px;
+            top: 10px;
+            width: 150px;
+            height: 150px;
+            border-radius: 80px;
+            {% comment %} box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35); {% endcomment %}
+        }
+        img {
+            box-sizing: border-box;
+            width: 149px;
+            height: 149px;
+            border-radius: 50%;
+            margin: 0;
+            {% comment %} border: 5px solid green; {% endcomment %}
+            padding: 3px;
+            background-color: white;
+        }
+        .text {
+            display: block;
+            margin-bottom: 30px;
+        }
+        .text input[type="about"] {
+            display: block;
+            box-sizing: border-box;
+            /*background: none;*/
+            color: green;
+            margin-top: 30px;
+            padding: 10px;
+            width: 220px;
+            height: 100px;
+            border: none;
+            border-bottom: 1px solid #0082e6;
+        }
+        input[type="vibes"] {
+            display: block;
+            box-sizing: border-box;
+            /*background: none;*/
+            color: green;
+            margin-top: 70px;
+            margin-bottom: 80px;
+            padding: 10px;
+            width: 220px;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid #0082e6;
+        }
+        .welcome {
+            position: relative;
+            left: 50px;
+            bottom: 100px;
+            width: 300px;
+        }
+        .textdisplay {
+            background-color: white;
+            {% comment %} margin-top: 50px; {% endcomment %}
+            height: 200px;
+            width: 100%;
+        }
+    </style>
+    <center>
+        <div class="box h-auto bg-black/30 rounded-lg flex flex-col p-4">
+            <!-- Top row -->
+            <div class="flex w-max space-x-4 p-4">
+                {% if custom_image %}
+                <img
+                    id="profile-image"
+                    name="upload_picture"
+                    src="{{custom_image.url}}"
+                    class="w-28 h-28 m-auto"
+                    onclick="selectProfilePicture()"
+                />
+                {% else %}
+                <img
+                    id="profile-image"
+                    name="upload_picture"
+                    src="{{user_to_display.profile_picture}}"
+                    class="w-28 h-28 m-auto"
+                    onclick="selectProfilePicture()"
+                />
+                {% endif %}
+                <div
+                    class="flex flex-col text-left py-2 align-middle h-auto m-auto"
+                >
+                    <p class="title text-lg">
+                        {{user_to_display.display_name}}
+                    </p>
+                    <p class="">Joined {{user_to_display.date_joined}}</p>
+                    {% if is_friend %}
+                    <p class="text-xs text-blue-200">You are friends!</p>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Top row -->
+
+            <!-- Statistics row -->
+            <form id="recalculate-form">
+                <input name="recalculate" value="True" class="absolute h-0 w-0">
+                <div
+                    class="text-blue-200 justify-start text-left w-full flex flex-col px-4"
+                >
+                    {% if is_owner %}
+                    <button class="mr-auto text-xs text-white" onclick="recalculateStats()">stats (click to recalculate)</button>
+                    {% else %}
+                    <p class="text-xs text-white">stats</p>
+                    {% endif %}
+                    <p>top genre: {{top_genre}}</p>
+                    <p>top artist: {{top_artist}}</p>
+                    <p>top song: {{top_song}}</p>
+                    <p>friends: {{num_friends}}</p>
+                    <p>playlists: {{num_playlists}}</p>
+                </div>
+            </form>
+            <!-- Statistics row -->
+
+            <!-- Description field row -->
+            <form id="profile-form">
+                <fieldset
+                    id="form-field-set"
+                    disabled
+                    class="flex flex-col px-4 py-2 w-full"
+                >
+                    <label class="text-xs text-left">about</label>
+                    <input
+                        name="about"
+                        type="text"
+                        class="text-black rounded-lg border-0 disabled:bg-blue-200"
+                        value="{{user_to_display.about}}"
+                    />
+                    <br />
+                    <label class="text-xs text-left">vibes</label>
+                    <input
+                        name="vibes"
+                        type="text"
+                        class="text-black rounded-lg border-0 disabled:bg-blue-200"
+                        value="{{user_to_display.vibes}}"
+                    />
+                </fieldset>
+            </form>
+            <!-- Description field row -->
+
+            <!-- Button row -->
+            <div class="justify-end w-full flex flex-row space-x-2">
+                <button
+                    onclick="location.href = '../homepage'"
+                    class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-full"
+                >
+                    home
+                </button>
+                {% if is_owner %}
+                <div id="editing-choices" class="space-x-2">
+                    <button
+                        onclick="enableEditing()"
+                        id="edit-button"
+                        class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-full"
+                    >
+                        edit profile
+                    </button>
+                </div>
+                <div id="editing-buttons" class="hidden space-x-2">                 
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label
+                            class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-full"
+                            for="id_image"
+                            >edit picture</label
+                        >
+                        <input type="file" name="image" accept="image/png" id="id_image" class="hidden">
+                        <button
+                            onclick="this.disabled=true, this.form.submit();"
+                            class="bg-blue-500 hover:bg-green-700 text-white text-sm py-2 px-4 rounded-full"
+                            >
+                            Upload
+                        </button>
+                    </form>
+                    <button
+                        onclick="reloadPage()"
+                        class="bg-blue-500 hover:bg-red-700 text-white text-sm py-2 px-4 rounded-full"
+                    >
+                        cancel
+                    </button>
+                    {% comment %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label
+                            class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-4 rounded-full"
+                            for="id_image"
+                            >edit picture</label
+                        >
+                        <input type="file" name="image" accept="image/png" id="id_image" class="hidden">
+                        {% endcomment %}
+                        <button
+                            onclick="submitForm(), this.disabled=true,this.form.submit();"
+                            class="bg-blue-500 hover:bg-green-700 text-white text-sm py-2 px-4 rounded-full"
+                            >
+                            save
+                        </button>
+                    <!-- </form> -->
+                    </div>
+                {% endif %}
+            </div>
+            <!-- Button row -->
+        </div>
+    </center>
+    <script>
+        var editing = false;
+        function enableEditing() {
+            editing = true;
+            document
+                .getElementById("form-field-set")
+                .removeAttribute("disabled");
+            document.getElementById("editing-choices").style.display = "none";
+            document.getElementById("editing-buttons").style.display = "flex";
+        }
+
+        function reloadPage() {
+            window.location.reload(true);
+        }
+
+        function recalculateStats() {
+            document.getElementById("recalculate-form").submit()
+        }
+
+        function submitForm() {
+            document.getElementById("profile-form").submit();
+        }
+
+        console.log("The checkpoint")
+
+        const image_input = document.getElementById("image-input");
+        var uploaded_image = "";
+        image_input.addEventListener("change", function () {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+                const uploaded_image = reader.result;
+                var url = uploaded_image;
+                document
+                    .getElementById("profile-image")
+                    .setAttribute("src", url);
+            });
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        
+        document
+            .getElementById("image-input")
+            .addEventListener("change", selectProfilePicture());
+
+        function selectProfilePicture() {
+            console.log("You are in selectProfilePicture addEventListener area before return area")
+            return;
+            console.log("You are in selectProfilePicture addEventListener after return area")
+            const reader = new FileReader();
+            const uploaded_image = reader.result;
+            let image = (document.querySelector(
+                "#imgid"
+            ).style.backgroundImage = `url(${uploaded_image})`); 
+
+            
+            reader.readAsDataURL(this.files[0]);
+
+            console.log("AAWADWAD");
+
+            $.ajax({
+                type: "GET",
+                url: "/profile/",
+                data: {
+                    url: result,
+                },
+                dataType: "json", 
+            }); 
+        } 
+    </script>
+    {% endblock %}
+</html>

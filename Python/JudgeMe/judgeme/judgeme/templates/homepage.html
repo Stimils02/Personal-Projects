@@ -1,0 +1,459 @@
+{% extends "base.html" %} {% load static %}
+<html>
+    {% block content %}
+    <style>
+        .nav {
+            display: flex;
+            position: absolute;
+            /*background-color: white;*/
+            color: black;
+            /*outline: 5px solid red; */
+            left: 10px;
+            width: 99%;
+            height: 250px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .prof-container {
+            display: block;
+            position: relative;
+            align-items: center;
+            /*outline: 3px solid green; */
+            margin-top: 10px;
+            height: 200px;
+            left: 20px;
+            width: 220px;
+        }
+        .imgbox {
+            position: relative;
+            /*outline: 3px solid black;*/
+            height: 140px;
+            width: 140px;
+            left: 50px;
+            top: 10px;
+            border-radius: 70px;
+        }
+        #btnid {
+            position: relative;
+            margin-top: 20px;
+            bottom: 5px;
+            left: 68px;
+            width: 100px;
+        }
+        .info {
+            display: flex;
+            /*outline: 3px solid purple;*/
+            position: absolute;
+            justify-content: space-around;
+            left: 300px;
+            height: 250px;
+            width: 80%;
+        }
+        .friends {
+            display: block;
+            text-align: center;
+            justify-content: space-around;
+            color: white;
+            /*outline: 3px solid brown;*/
+            width: 30%;
+            font-size: 30px;
+            margin-block: 10px;
+            padding: 20px;
+        }
+        .playlist {
+            display: block;
+            text-align: center;
+            justify-content: space-around;
+            color: white;
+            /*outline: 3px solid brown;*/
+            padding: 20px;
+            margin-block: 10px;
+            width: 30%;
+            font-size: 30px;
+            width: 30%;
+            font-size: 30px;
+        }
+        .numfriends {
+            margin-top: 40px;
+            background-color: black;
+            border-radius: 40px;
+            color: white;
+        }
+        .btn-container {
+            display: flex;
+            position: absolute;
+            justify-content: space-around;
+            align-items: center;
+            /*outline: 3px solid pink; */
+            top: 260px;
+            width: 90%;
+            margin: 50px;
+            height: 200px;
+        }
+    </style>
+
+    <body>
+        <button
+            class="fixed bottom-2 right-24 bg-[white] px-2 py-2 w-20 h-20 rounded-full items-center hover:bg-[black]"
+            type="button"
+            onclick="openFriends()"
+        >
+            <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/005/544/770/small/profile-icon-design-free-vector.jpg"
+                alt="friends"
+                class="px-1 py-1 w-15 h-15 pointer-events-none"
+            />
+        </button>
+        <button
+            class="fixed bottom-2 right-2 bg-[white] px-2 py-2 w-20 h-20 rounded-full items-center hover:bg-[black]"
+            type="button"
+            data-modal-toggle="popup-modal"
+        >
+            <img
+                src="{% static '/icons/darkmode.png' %}"
+                alt="darkmode"
+                class="px-1 py-1 w-15 h-15 pointer-events-none"
+            />
+        </button>
+
+        <div
+            id="popup-modal"
+            tabindex="-1"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
+        >
+            <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                <div
+                    class="relative bg-white rounded-lg shadow dark:bg-gray-700"
+                >
+                    <button
+                        type="button"
+                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                        data-modal-toggle="popup-modal"
+                    >
+                        <svg
+                            aria-hidden="true"
+                            class="w-5 h-5"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"
+                            ></path>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="p-6 text-center">
+                        <svg
+                            aria-hidden="true"
+                            class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 25 25"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                            ></path>
+                        </svg>
+                        <h3
+                            class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
+                        >
+                            Which mode would you like? Choose wisely!
+                        </h3>
+                        <form>
+                            <input
+                                type="submit"
+                                name="lightMode"
+                                value="Light Mode"
+                                data-modal-toggle="popup-modal"
+                                type="button"
+                                class="text-gray-500 bg-white hover:bg-[#f5deb3] focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-[#f5deb3] font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                            />
+                            <input
+                                type="submit"
+                                name="darkMode"
+                                value="Dark Mode"
+                                data-modal-toggle="popup-modal"
+                                type="button"
+                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                            />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+
+        <!-- welcome -->
+        <div class="flex m-auto justify-center space-x-4 p-8">
+            <button onclick="location.href='../profile/'">
+                {% if custom_image %}
+                <img
+                id="profile-image"
+                src="{{custom_image.url}}"
+                class="w-28 h-28 m-auto rounded-full pointer-events-none"
+                />
+                {% else %}
+                <img
+                    id="profile-image"
+                    src="{{user.profile_picture}}"
+                    class="w-28 h-28 m-auto rounded-full pointer-events-none"
+                />
+                {% endif %}
+            </button>
+
+            <div
+                class="flex flex-col text-left py-2 align-middle h-auto m-auto"
+            >
+                <p class="title text-3xl">Hi {{user.display_name}}.</p>
+                <p class="">You look terrible.</p>
+            </div>
+            <button
+                    onclick="location.href = '../goodorbadplaylist/'"
+                    id="btnid"
+                    class="btn opacity-0 animate-fadeIn animation-delay-500"
+                >
+                    Risk Your Fate
+                </button>
+        </div>
+        <!-- welcome -->
+        <div class="flex justify-center animate-fadeIn">
+            <div class="flex flex-col m-y-auto">
+                <p class="title text-lg">Your Besties</p>
+                    {% for friend in besties %}
+                    <!-- Friend Listing -->
+                    {% if forloop.counter0 == 0 %}
+                    <div
+                        class="flex flex-row w-80 h-16 p-2 my-1 rounded-lg border-2 space-x-2 border-yellow-400 bg-black"
+                    >
+                    {% elif forloop.counter0 == 1 %}
+                    <div
+                        class="flex flex-row w-80 h-16 p-2 my-1 rounded-lg border-2 space-x-2 border-slate-400 bg-black"
+                    >
+                    {% else %}
+                    <div
+                        class="flex flex-row w-80 h-16 p-2 my-1 rounded-lg border-2 space-x-2 border-yellow-800 bg-black"
+                    >
+                    {% endif %}
+                        <button type="button">
+                            {% if friend.uploaded_image %}
+                            <img
+                                src="{{friend.uploaded_image.url}}"
+                                class="w-12 h-12 rounded-full hover:opacity-60"
+                                onClick="location.href = '../profile/?user={{friend.username}}' "
+                            />
+                            {% else %}
+                            <img
+                                src="{{friend.profile_picture}}"
+                                class="w-12 h-12 rounded-full hover:opacity-60"
+                                onClick="location.href = '../profile/?user={{friend.username}}' "
+                            />
+                            {% endif %}
+                        </button>
+
+                        <div class="flex flex-col text-left">
+                            <p class="text-white text-base">{{friend}}</p>
+                            <p class="text-indigo-200 text-xs">
+                                Current fav:
+                                {{friend.top_track_name}}
+                            </p>
+                        </div>
+                        <div class="flex flex-grow justify-end text-xs">#{{forloop.counter}}</div>
+
+                    </div>
+                    <!-- Friend Listing end -->
+                    {% empty %}
+                    <p>You have no friends. Invite them!</p>
+                    {% endfor %}
+            </div>
+        </div>
+        {% comment %} <div class="flex flex-row m-auto items-center justify-center space-x-8"> {% endcomment %}
+        <div class="flex flex-col m-auto items-center justify-center space-y-8 opacity-0 animate-fadeIn animation-delay-500">
+            <!-- button row -->
+            <div class="flex flex-col m-y-auto space-y-3 w-min py-4">
+                <p class="title text-lg justify-center text-center">Let's do something.</p>
+                <button
+                    type="submit"
+                    class="btn "
+                    onclick="location.href='../judge/'"
+                >
+                    Make a comparison
+                </button>
+                <button
+                    type="submit"
+                    class="btn "
+                    onclick="location.href='../artist/'"
+                >
+                    Explore artist stats
+                </button>
+                <button
+                    type="submit"
+                    class="btn "
+                    onclick="location.href='../generate/'"
+                >
+                    Generate some tunes
+                </button>
+                <button
+                    type="submit"
+                    class="btn "
+                    onclick="location.href='../breakdown/'"
+                >
+                    Explore your music taste
+                </button>
+            </div>
+            <!-- button row -->
+
+            <style>
+                .image {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    border: 4px solid #ffffff;
+                }
+            </style>
+
+        </div>
+    </body>
+
+    <body>
+        <div
+            id="friend-div"
+            class="{% if request_code == 0 %}hidden{% else %}flex{% endif %} absolute m-auto left-0 right-0 top-0 bottom-0 text-center bg-black"
+        >
+            <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/30 rounded-lg px-4 py-6"
+            >
+                <p class="title">Ur Friends</p>
+                {% if user %} {% if friends %} {% for friend in friends %}
+                <!-- Friend Listing -->
+                <div
+                    class="relative flex flex-row w-80 h-16 p-2 my-1 rounded-lg border-0 space-x-2 bg-indigo-600 hover:bg-[{{bubble_color}}]"
+                >
+                    <button type="button">
+                        {% if friend.uploaded_image %}
+                        <img
+                            src="{{friend.uploaded_image.url}}"
+                            class="w-12 h-12 rounded-full hover:opacity-60"
+                            onClick="location.href = '../profile/?user={{friend.username}}' "
+                        />
+                        {% else %}
+                        <img
+                            src="{{friend.profile_picture}}"
+                            class="w-12 h-12 rounded-full hover:opacity-60"
+                            onClick="location.href = '../profile/?user={{friend.username}}' "
+                        />
+                        {% endif %}
+                    </button>
+                    <div class="flex flex-col text-left">
+                        <p class="text-white text-base">{{friend}}</p>
+                        <p class="text-indigo-200 text-xs">
+                            Joined {{friend.date_joined}}
+                        </p>
+                        <button
+                            class="absolute right-2.5 bottom-1 font-light text-xs text-indigo-300 hover:underline"
+                            type="submit"
+                            name="remove-friend"
+                            value="{{friend}}"
+                        >
+                        <form>
+                                remove
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Friend Listing end -->
+                {% endfor %} {% else %}
+                <p class="text-sm text-slate-300">
+                    You don't have any friends lol
+                </p>
+                {% endif %} {% endif %}
+                <br />
+                <p class="title text-slate-300 text-sm">Add a friend.</p>
+                <form>
+                    <label
+                        for="default-search"
+                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+                        >Search</label
+                    >
+                    <div class="relative w-80">
+                        <div
+                            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
+                        >
+                            <svg
+                                aria-hidden="true"
+                                class="w-5 h-5 text-gray-500"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <input
+                            type="search"
+                            title=""
+                            name="add-friend"
+                            id="default-search"
+                            class="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Search for friends"
+                            required
+                        />
+                        <button
+                            type="submit"
+                            class="text-white absolute right-1 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2"
+                        >
+                            Search
+                        </button>
+                    </div>
+                </form>
+                {% if request_code != 0 %}
+                <div>
+                    {% if request_code == 1 %}
+                    <p class="text-sm mt-2 text-green-500">
+                        Friend added successfully.
+                    </p>
+                    {% endif %} {% if request_code == 2 %}
+                    <p class="text-sm mt-2 text-red-500">
+                        Couldn't find friend.
+                    </p>
+                    {% endif %} {% if request_code == 3 %}
+                    <p class="text-sm mt-2 text-green-500">
+                        Friend removed successfully.
+                    </p>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <br />
+                <button
+                    type="submit"
+                    class="btn w-80 bg-gray-200"
+                    onclick="closeFriends()"
+                >
+                    Close
+                </button>
+            </div>
+        </div>
+    </body>
+    <script>
+        function openFriends() {
+            document.getElementById("friend-div").style.display = "flex";
+        }
+
+        function closeFriends() {
+            document.getElementById("friend-div").style.display = "none";
+        }
+    </script>
+    {% endblock %}
+</html>
