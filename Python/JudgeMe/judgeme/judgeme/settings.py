@@ -140,10 +140,10 @@ NPM_BIN_PATH = r'/opt/homebrew/bin/npm'
 
 STATIC_URL = 'static/'
 
-#Image save locaion that will act as storage and sort of a static file
+# Image save locaion that will act as storage and sort of a static file
 MEDIA_URL = 'media/'
 
-#If errors come here---------------------This is probably the cause
+# If errors come here---------------------This is probably the cause
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),

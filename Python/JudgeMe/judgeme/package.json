@@ -4,5 +4,8 @@
     "flowbite": "^1.5.3",
     "jquery": "^3.6.1",
     "simplex-noise": "^4.0.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
   }
 }

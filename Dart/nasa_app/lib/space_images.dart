@@ -11,6 +11,11 @@ class SpaceImages extends StatelessWidget {
     ThemeModel model = Provider.of<ThemeModel>(context);
     bool showImage = url == '' ? false : true;
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back)),
+      ),
       backgroundColor: model.backgroundColor,
       body: Center(
         child: showImage
